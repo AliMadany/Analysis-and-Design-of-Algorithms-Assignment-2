@@ -74,3 +74,4 @@ highest_score, alignment1, alignment2
 print("Highest Score:", highest_score)
 print("Alignment 1:", alignment1)
 print("Alignment 2:", alignment2)
+print("test")
