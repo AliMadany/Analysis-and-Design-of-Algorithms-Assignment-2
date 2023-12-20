@@ -1,17 +1,17 @@
 import numpy as np
 
-# Define the scoring matrix for the alignments, including the gap scoring
+# Redefine the scoring matrix for the alignments, including the gap scoring
 scoring_matrix = {
     'A': {'A': 1, 'G': -0.8, 'T': -0.2, 'C': -2.3, '-': -0.6},
     'G': {'A': -0.8, 'G': 1, 'T': -1.1, 'C': -0.7, '-': -1.5},
     'T': {'A': -0.2, 'G': -1.1, 'T': 1, 'C': -0.5, '-': -0.9},
     'C': {'A': -2.3, 'G': -0.7, 'T': -0.5, 'C': 1, '-': -1},
-    '-': {'A': -0.6, 'G': -1.5, 'T': -1, 'C': -0.9, '-': 0}  # Assuming gap-gap score is 0
+    '-': {'A': -0.6, 'G': -1.5, 'T': -0.9, 'C': -1, '-': 0}  # Set gap-gap score to 0
 }
 
-# Define the sequences to be aligned
-seq1 = "--T--CC-C-AGT---TATGT-CAGGGACACG-A-GCATGCAGA--GAC"
-seq2 = "AATTGCCGCC-GTCGT-T-TTCAG----CA-GTTATG-T-CAGAT--C"
+# Redefine the sequences to be aligned
+seq1 = "TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC"
+seq2 = "AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC"
 
 # Initialize the matrix for dynamic programming
 dp_matrix = np.zeros((len(seq1)+1, len(seq2)+1))
@@ -48,7 +48,7 @@ def traceback(seq1, seq2, dp_matrix):
             align1 += seq1[i-1]
             align2 += '-'
             i -= 1
-        elif score_current == score_up + scoring_matrix['-'][seq2[j-1]]:
+        else:
             align1 += '-'
             align2 += seq2[j-1]
             j -= 1
@@ -69,9 +69,9 @@ alignment1, alignment2 = traceback(seq1, seq2, dp_matrix)
 # The highest score is at the bottom-right corner of the matrix
 highest_score = dp_matrix[-1][-1]
 
+# Print the results
 highest_score, alignment1, alignment2
 
 print("Highest Score:", highest_score)
-print("Alignment 1:", alignment1)
-print("Alignment 2:", alignment2)
-print("test")
+print(alignment1)
+print(alignment2)
