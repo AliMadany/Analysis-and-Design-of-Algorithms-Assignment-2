@@ -1,6 +1,6 @@
 import numpy as np
 
-# Redefine the scoring matrix for the alignments, including the gap scoring
+#  the scoring matrix for the alignments, including the gap scoring
 scoring_matrix = {
     'A': {'A': 1, 'G': -0.8, 'T': -0.2, 'C': -2.3, '-': -0.6},
     'G': {'A': -0.8, 'G': 1, 'T': -1.1, 'C': -0.7, '-': -1.5},
@@ -9,7 +9,7 @@ scoring_matrix = {
     '-': {'A': -0.6, 'G': -1.5, 'T': -0.9, 'C': -1, '-': 0}  # Set gap-gap score to 0
 }
 
-# Redefine the sequences to be aligned
+#  the sequences to be aligned
 seq1 = "TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC"
 seq2 = "AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC"
 
@@ -22,7 +22,7 @@ for i in range(1, len(seq1)+1):
 for j in range(1, len(seq2)+1):
     dp_matrix[0][j] = dp_matrix[0][j-1] + scoring_matrix['-'][seq2[j-1]]
 
-# Fill the dynamic programming matrix and compute the score
+# Fill the  matrix and compute the score
 for i in range(1, len(seq1)+1):
     for j in range(1, len(seq2)+1):
         match = dp_matrix[i-1][j-1] + scoring_matrix[seq1[i-1]][seq2[j-1]]
@@ -30,7 +30,7 @@ for i in range(1, len(seq1)+1):
         insert = dp_matrix[i][j-1] + scoring_matrix['-'][seq2[j-1]]
         dp_matrix[i][j] = max(match, delete, insert)
 
-# Function to trace back the optimal alignment
+# trace back the optimal alignment
 def traceback(seq1, seq2, dp_matrix):
     align1, align2 = '', ''
     i, j = len(seq1), len(seq2)
